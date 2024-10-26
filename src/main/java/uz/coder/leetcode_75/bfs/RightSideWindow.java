@@ -42,9 +42,9 @@ public class RightSideWindow {
             System.out.print(currentNode.val + " "); // Process the node
 
             // Enqueue the left child if it exists
-//            if (currentNode.left != null) {
-//                queue.add(currentNode.left);
-//            }
+            if (currentNode.left != null) {
+                queue.add(currentNode.left);
+            }
             els.add(currentNode.val);
             // Enqueue the right child if it exists
             if (currentNode.right != null) {
@@ -64,7 +64,26 @@ public class RightSideWindow {
         root.right.right = new TreeNode(7);
 
         RightSideWindow bfsExample = new RightSideWindow();
-        bfsExample.rightSideView(root);
+        System.out.println(bfsExample.rightSideView2(root));
+    }
+
+    public List<Integer> rightSideView2(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        rightView(root, result, 0);
+        return result;
+    }
+
+    public void rightView(TreeNode curr, List<Integer> result, int currDepth){
+        if(curr == null){
+            return;
+        }
+        if(currDepth == result.size()){
+            result.add(curr.val);
+        }
+
+        rightView(curr.right, result, currDepth + 1);
+        rightView(curr.left, result, currDepth + 1);
+
     }
 }
 
